@@ -8,6 +8,9 @@ class Permission(models.Model):
     """
     title = models.CharField(max_length=32, verbose_name='标题')
     url = models.CharField(max_length=32, verbose_name='权限')
+    is_menu = models.BooleanField(default=False, verbose_name='是否为菜单')
+    # null 数据库层面字段可以为空，blank在admin层面字段可以为空
+    icon = models.CharField(max_length=32, verbose_name='图标', null=True, blank=True)
 
     class Meta:
         # 改变admin中显示的表名称（外层）

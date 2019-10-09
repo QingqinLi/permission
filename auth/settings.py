@@ -50,7 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'web.middlewares.rbac.PermissionMiddle',
+    'rbac.middlewares.rbac.PermissionMiddle',
 ]
 
 ROOT_URLCONF = 'auth.urls'
@@ -124,6 +124,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 PERMISSION_SESSION_KEY = 'permission_list'
+MENU_SESSION_KEY = 'menu'
 WHITE_URL_LIST = [
     '/login/',
     '/logout/',

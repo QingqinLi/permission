@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{% static 'plugins/font-awesome/css/font-awesome.css' %} "/>
     <link rel="stylesheet" href="{% static 'css/commons.css' %} "/>
     <link rel="stylesheet" href="{% static 'css/nav.css' %} "/>
+    <link rel="stylesheet" href="{% static 'css/menu.css' %}">
     <style>
         body {
             margin: 0;
@@ -153,15 +154,8 @@
 </div>
 <div class="pg-body">
     <div class="left-menu">
-        <div class="menu-body">
-            <div class="static-menu">
-                <a href="/customer/list/" class="active">
-                    <span class="icon-wrap"><i class="fa fa-connectdevelop"></i></span> 客户管理</a>
-                <a href="/payment/list/">
-                    <span class="icon-wrap"><i class="fa fa-code-fork"></i></span> 账单管理</a>
-            </div>
-
-        </div>
+        {% load rabc%}
+        {% menu request %}
     </div>
     <div class="right-body">
         <div>

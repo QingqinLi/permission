@@ -6,9 +6,9 @@ from rbac import models
 # 在admin中每一条记录的显示
 class PermissionAdmin(admin.ModelAdmin):
     # 要显示的字段
-    list_display = ['title', 'url']
+    list_display = ['title', 'url', 'is_menu', 'icon']
     # 可编辑的字段
-    list_editable = ['url']
+    list_editable = ['url', 'is_menu', 'icon']
 
 
 # 关联

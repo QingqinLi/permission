@@ -37,7 +37,9 @@ class PermissionMiddle(MiddlewareMixin):
             if re.match(white, url):
                 return
         for item in permission_list:
-            my_url = item[0]
+
+            my_url = item['url']
+            print('my_url', my_url)
             if re.match(my_url, url):
                 return
         # if [url] in permission_list:
