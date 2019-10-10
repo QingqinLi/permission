@@ -2,6 +2,20 @@ from django.db import models
 
 
 # Create your models here.
+class Menu(models.Model):
+    title = models.CharField(max_length=32, verbose_name='标题')
+    icon = models.CharField(max_length=32, verbose_name='图标', null=True, blank=True)
+    weight = models.IntegerField(verbose_name='菜单权重', default=1)
+
+    class Meta:
+        # 改变admin中显示的表名称（外层）
+        verbose_name_plural = '菜单表'
+        verbose_name = '菜单表'
+
+    def __str__(self):
+        return self.title
+
+
 class Permission(models.Model):
     """
     权限表
@@ -10,7 +24,10 @@ class Permission(models.Model):
     url = models.CharField(max_length=32, verbose_name='权限')
     is_menu = models.BooleanField(default=False, verbose_name='是否为菜单')
     # null 数据库层面字段可以为空，blank在admin层面字段可以为空
-    icon = models.CharField(max_length=32, verbose_name='图标', null=True, blank=True)
+    # icon = models.CharField(max_length=32, verbose_name='图标', null=True, blank=True)
+    menu = models.ForeignKey('Menu', blank=True, null=True)
+    # 自关联
+    parent = models.ForeignKey('Permission', verbose_name='父级权限', null=True, blank=True)
 
     class Meta:
         # 改变admin中显示的表名称（外层）

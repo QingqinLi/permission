@@ -41,6 +41,11 @@ class PermissionMiddle(MiddlewareMixin):
             my_url = item['url']
             print('my_url', my_url)
             if re.match(my_url, url):
+                if item['pid']:
+                    request.current_menu_id = item['pid']
+                else:
+                    request.current_menu_id = item['id']
+
                 return
         # if [url] in permission_list:
         #     return

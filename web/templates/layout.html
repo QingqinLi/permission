@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{% static 'plugins/font-awesome/css/font-awesome.css' %} "/>
     <link rel="stylesheet" href="{% static 'css/commons.css' %} "/>
     <link rel="stylesheet" href="{% static 'css/nav.css' %} "/>
-    <link rel="stylesheet" href="{% static 'css/menu.css' %}">
+    <link rel="stylesheet" href="{% static 'css/menu.css' %}"/>
     <style>
         body {
             margin: 0;
@@ -60,13 +60,13 @@
 
         }
 
-        .left-menu .menu-body .static-menu .icon-wrap {
+        .static-menu .icon-wrap {
             width: 20px;
             display: inline-block;
             text-align: center;
         }
 
-        .left-menu .menu-body .static-menu a {
+        .static-menu a {
             text-decoration: none;
             padding: 8px 15px;
             border-bottom: 1px solid #ccc;
@@ -82,15 +82,57 @@
             box-shadow: inset 0px 1px 1px white;
         }
 
-        .left-menu .menu-body .static-menu a:hover {
+        .static-menu a:hover {
             color: #2F72AB;
             border-left: 2px solid #2F72AB;
         }
 
-        .left-menu .menu-body .static-menu a.active {
+        .static-menu a.active {
             color: #2F72AB;
             border-left: 2px solid #2F72AB;
         }
+
+        .multi-menu .item {
+            background-color: white;
+        }
+
+        .multi-menu .item > .title {
+            padding: 10px 5px;
+            border-bottom: 1px solid #dddddd;
+            cursor: pointer;
+            color: #333;
+            display: block;
+            background: #efefef;
+            background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #efefef), color-stop(1, #fafafa));
+            background: -ms-linear-gradient(bottom, #efefef, #fafafa);
+            background: -o-linear-gradient(bottom, #efefef, #fafafa);
+            filter: progid:dximagetransform.microsoft.gradient(startColorStr='#e3e3e3', EndColorStr='#ffffff');
+            -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#fafafa',EndColorStr='#efefef')";
+            box-shadow: inset 0 1px 1px white;
+        }
+
+        .multi-menu .item > .body {
+            border-bottom: 1px solid #dddddd;
+        }
+
+        .multi-menu .item > .body a {
+            display: block;
+            padding: 5px 20px;
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            font-size: 13px;
+
+        }
+
+        .multi-menu .item > .body a:hover {
+            border-left: 2px solid #2F72AB;
+        }
+
+        .multi-menu .item > .body a.active {
+            border-left: 2px solid #2F72AB;
+        }
+
+
     </style>
 </head>
 <body>
@@ -154,8 +196,11 @@
 </div>
 <div class="pg-body">
     <div class="left-menu">
-        {% load rabc%}
-        {% menu request %}
+        <div class="menu-body">
+            {% load rabc %}
+            {% menu request %}
+
+        </div>
     </div>
     <div class="right-body">
         <div>
@@ -173,6 +218,9 @@
 
 <script src="{% static 'js/jquery-3.3.1.min.js' %} "></script>
 <script src="{% static 'plugins/bootstrap/js/bootstrap.js' %} "></script>
+<script src="{% static 'js/menu.js' %}"></script>
+{#<script src="{% static 'js/menu.js' %} "></script>#}
+
 {% block js %} {% endblock %}
 </body>
 </html>

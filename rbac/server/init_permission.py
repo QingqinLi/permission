@@ -10,22 +10,44 @@ from django.conf import settings
 def init_permission(user, request):
     # 查询当前登录用户有的权限, 跨表查询
     permission_query = user.roles.all().filter(permissions__url__isnull=False).values('permissions__url',
-                                                                                      'permissions__is_menu',
-                                                                                      'permissions__icon',
-                                                                                      'permissions__title'
+                                                                                      'permissions__title',
+                                                                                      'permissions__menu_id',
+                                                                                      'permissions__menu__title',
+                                                                                      'permissions__menu__icon',
+                                                                                      'permissions__menu__weight',
+                                                                                      'permissions__parent_id',
+                                                                                      'permissions__id',
                                                                                       ).distinct()
     permission_list = []
     # 存在菜单信息
-    menu_list = []
+    menu = {}
+    print(permission_query)
     for i in permission_query:
-        permission_list.append({'url': i['permissions__url']})
-        if i['permissions__is_menu']:
+        permission_list.append({'url': i['permissions__url'],
+                                'pid': i['permissions__parent_id'],
+                                'id': i['permissions__id']})
+        if i['permissions__menu_id']:
             # 用字典，查询速度快
-            menu_list.append({'url': i['permissions__url'], 'icon': i['permissions__icon'],
-                              'title': i['permissions__title']})
-    print(permission_list)
+            # if menu_list
+            if i['permissions__menu_id'] in menu:
+                menu[i['permissions__menu_id']]['children'].append(
+                    dict(url=i['permissions__url'], title=i['permissions__title'],
+                         id=i['permissions__id']))
+            else:
+                menu[i['permissions__menu_id']] = {'title': i['permissions__menu__title'],
+                                                   'icon': i['permissions__menu__icon'],
+                                                   'id': i['permissions__id'],
+                                                   'weight': i['permissions__menu__weight'],
+                                                   'children': [{'url': i['permissions__url'],
+                                                                 'title': i['permissions__title'],
+                                                                 'id': i['permissions__id'],
+                                                                 }]
+                                                   }
+            # menu_list.append({'url': i['permissions__url'], 'menu': i['permissions__menu__title'],
+            #                   'title': i['permissions__title']})
+    print(menu)
 
     # 过滤空权限，重复权限
     # 将权限信息写入session,会自动进行序列化, permission_list应该是可配置的，setting
     request.session[settings.PERMISSION_SESSION_KEY] = permission_list
-    request.session[settings.MENU_SESSION_KEY] = menu_list
+    request.session[settings.MENU_SESSION_KEY] = menu
