@@ -7,6 +7,7 @@ from django import template
 from django.conf import settings
 import re
 from collections import OrderedDict
+from django.conf import settings
 
 register = template.Library()
 
@@ -40,3 +41,17 @@ def menu(request):
     #     if re.match('^{}$'.format(url), request.path_info):
     #         i['class'] = 'active'
     return {'menu_list': menu_order}
+
+
+@register.inclusion_tag('rbac/breadcrumb.html')
+def breadcrumb(request):
+    return {'breadcrumb_list': request.breadcrumb_list}
+
+
+@register.filter
+def has_permission(request, permission):
+    print("here", type(str(permission)), str(permission), list(request.session.get(settings.PERMISSION_SESSION_KEY).keys()))
+    if str(permission) in list(request.session.get(settings.PERMISSION_SESSION_KEY).keys()):
+        print("yes yes ")
+        return True
+

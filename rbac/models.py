@@ -28,6 +28,7 @@ class Permission(models.Model):
     menu = models.ForeignKey('Menu', blank=True, null=True)
     # 自关联
     parent = models.ForeignKey('Permission', verbose_name='父级权限', null=True, blank=True)
+    name = models.CharField(max_length=32, verbose_name='别名', null=True, blank=True, unique=True)
 
     class Meta:
         # 改变admin中显示的表名称（外层）

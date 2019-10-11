@@ -22,6 +22,6 @@ def login(request):
 
         init_permission(user, request)
 
-        return redirect(reverse('customer'))
+        return redirect(reverse('web:customer'))
 
     return render(request, 'login.html')
