@@ -132,7 +132,8 @@
             border-left: 2px solid #2F72AB;
         }
 
-
+        {% block css %}
+        {% endblock %}
     </style>
 </head>
 <body>
@@ -198,13 +199,13 @@
     <div class="left-menu">
         <div class="menu-body">
             {% load rabc %}
-            {% menu request %}
+{#            {% menu request %}#}
 
         </div>
     </div>
     <div class="right-body">
         <div>
-            {% breadcrumb request %}
+{#            {% breadcrumb request %}#}
 {#            <ol class="breadcrumb no-radius no-margin" style="border-bottom: 1px solid #ddd;">#}
 {##}
 {#                <li><a href="#">首页</a></li>#}
