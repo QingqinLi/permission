@@ -18,5 +18,5 @@ urlpatterns = [
     
     
     # url(r'^login/$', account_pre.login)
-    url(r'^login/$', account.login)
+    url(r'^login/$', account.login, name='login')
 ]

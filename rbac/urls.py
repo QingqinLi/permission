@@ -20,4 +20,7 @@ urlpatterns = [
     url(r'^permission/add/', views.permission, name='permission_add'),
     url(r'^permission/edit/(?P<edit_id>\d+)', views.permission, name='permission_edit'),
     url(r'^permission/del/(?P<del_id>\d+)', views.permission_del, name='permission_del'),
+
+    url(r'^user/list/', views.user_list, name='user_list'),
+    url(r'^multi/permissions/', views.multi_permissions, name='multi_permissions'),
 ]

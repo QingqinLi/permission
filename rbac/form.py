@@ -105,3 +105,26 @@ class PermissionForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         for field in self.fields:
             self.fields[field].widget.attrs.update({"class": "form-control"})
+
+
+class MultiPermissionForm(forms.ModelForm):
+    class Meta:
+        model = models.Permission
+        fields = ['title', 'url', 'name', 'parent', 'menu']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs.update({'class': 'form-control'})
+        # 父级权限，找没有父级权限的， 排除没有一级菜单的
+        self.fields['parent'].choices = [(None, '----')] + list(models.Permission.objects.filter(
+            parent__isnull=True).exclude(menu__isnull=True).values_list('id', 'title'))
+
+    def clean(self):
+        menu = self.cleaned_data.get('menu')
+        pid = self.cleaned_data.get('parent')
+
+        if menu and pid:
+            raise forms.ValidationError('菜单和跟权限同时只能选择一个')
+        return self.cleaned_data
+
